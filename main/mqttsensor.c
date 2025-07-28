@@ -10,11 +10,9 @@
 #include "driver/gpio.h"
 #include "esp_adc/adc_oneshot.h"
 
-#define WIFI_SSID       "GALAXYA50"
-#define WIFI_PASS       "tydj5157"
-/*#define WIFI_SSID       "PC_HILS"
-#define WIFI_PASS       "dprsrp123"*/
-    #define MQTT_BROKER_URI "mqtt://192.168.144.94"
+#define WIFI_SSID       "wifiname" // wifi name
+#define WIFI_PASS       "password" // password 
+    #define MQTT_BROKER_URI "mqtt://192.168.xxx.xx" // put ur hostname here 
 #define GPIO_DIGITAL1 18
 #define GPIO_DIGITAL2 19
 #define GPIO_DIGITAL3 34
@@ -105,7 +103,7 @@ void wifi_event_handler(void *arg, esp_event_base_t event_base, int32_t event_id
     } else if (event_base == IP_EVENT && event_id == IP_EVENT_STA_GOT_IP) {
         ip_event_got_ip_t *event = (ip_event_got_ip_t *)event_data;
         ESP_LOGI("WiFi", "Got IP: " IPSTR, IP2STR(&event->ip_info.ip));
-        mqtt_app_start();  // only call this once IP is confirmed
+        mqtt_app_start();  
     }
 }
 
