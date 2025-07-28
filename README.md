@@ -237,15 +237,6 @@ Click the “Run” button to display the graphs.
 ---
 
 
-
-## GitHub Repo
-
-This project is available at:
-
-👉 [https://github.com/ayafh/esp-mqttapp](https://github.com/ayafh/esp-mqttapp)
-
----
-
 ## License
 
 MIT License — free to use, modify, and distribute.
