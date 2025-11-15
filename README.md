@@ -4,33 +4,16 @@ This project runs on an **ESP32** using the **ESP-IDF** framework. It reads **4 
 
 The system is built using an ESP32 microcontroller programmed in C with the ESP-IDF framework. After
 flashing the firmware to the ESP32, the board connects to the Wi-Fi network and establishes a connection
-to a locally hosted Mosquitto MQTT broker using the URI mqtt://192.168.x.xx. The ESP32 periodically
+to a locally hosted Mosquitto MQTT broker . The ESP32 periodically
 (every 2 seconds) reads data from four digital GPIO inputs and two analog ADC channels. Each sensor value
 is wrapped in a JSON object of the form {"value": <reading>} and published to its respective MQTT
 topic, such as /esp32/digital1, /esp32/analog2, etc.
-On the host machine (Ubuntu in our case ), Mosquitto runs as the MQTT broker, receiving the published messages
+On the host machine, Mosquitto runs as the MQTT broker, receiving the published messages
 from the ESP32. then Telegraf which is a lightweight metrics collection agent, is then configured to subscribe to the same
 MQTT topics using its mqtt consumer plugin. The relevant configuration specifies the broker address, topics
-16to monitor, data format as json, and a JSON path for extracting the numerical value. The extracted sensor
-readings are then forwarded to an InfluxDB database using Telegraf’s influxdb v2 output plugin, where
+to monitor, data format as json, and a JSON path for extracting the numerical value. The extracted sensor
+readings are then forwarded to an InfluxDB database using Telegraf’s influxdb v2 output plugin where
 they can be stored and visualized.
-The entire pipeline demonstrates real-time data acquisition from the ESP32, transmission via MQTT,
-and ingestion into a time-series database through Telegraf,
-
-
-## 📋 Project Structure
-
-
-mqttapp/
-├── main/
-│   ├── mqttsensor.c        # ESP32 source code
-│   └── CMakeLists.txt
-├── CMakeLists.txt
-├── README.md
-└── .gitignore
-```
-
----
 
 ## Requirements
 
@@ -43,46 +26,6 @@ mqttapp/
 - Telegraf
 - InfluxDB (optional)
 
-
-##  ESP-IDF Setup
-
-1. **Install ESP-IDF:** -- linux installation -- 
-   sudo apt install git wget flex bison gperf python3 python3-pip cmake ninja-build ccache
-   git clone --recursive https://github.com/espressif/esp-idf.git
-   cd esp-idf
-   ./install.sh
-   source export.sh
-
-2. **Create the project folder:**
-3. ** configure the CMakeList ** 
-
-4. **Build and flash:**
-   ```bash
-   idf.py set-target esp32 # the default is esp32 board change if needed
-   idf.py menuconfig         
-   idf.py build
-   idf.py flash
-   idf.py monitor
-   ```
-
----
-
-## ESP32 Code Behavior
-
-- Connects to Wi-Fi hotspot:
-  
-  #define WIFI_SSID "wifiname"
-  #define WIFI_PASS "password"
-  ```
-- Connects to MQTT Broker:
-  ```c
-  #define MQTT_BROKER_URI "mqtt://192.168.xxx.xx"
-  ```
-- Publishes sensor values every 2 seconds: vTaskdelay(period in milliseconds)
-  ```json
-  Topic: /esp32/digital1
-  Payload: {"value": 1}
-  ```
 
 ---
 
@@ -237,12 +180,9 @@ Click the “Run” button to display the graphs.
 ---
 
 
-## License
 
-MIT License — free to use, modify, and distribute.
-
-## Additional notes: 
+## notes: 
 
 feel free to modify and use anything , goodluck everyone! 
 
--Aya FAHMA & Douaa BENZINA 
+-Aya FAHMA & Douaa BENZINA at CDTA 
